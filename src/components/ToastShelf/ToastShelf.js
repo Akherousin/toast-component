@@ -10,7 +10,12 @@ function ToastShelf({ setToasts }) {
   if (toasts.length < 1) return null;
 
   return (
-    <ol className={styles.wrapper}>
+    <ol
+      className={styles.wrapper}
+      role="region"
+      aria-live="polite"
+      aria-label="Notification"
+    >
       {toasts.map(({ id, variant, text }) => (
         <li key={id} className={styles.toastWrapper}>
           <Toast variant={variant} id={id}>
