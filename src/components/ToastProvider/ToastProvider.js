@@ -1,21 +1,16 @@
 import React from 'react';
+import useKey from '../../hooks/useKey';
 
 export const ToastContext = React.createContext();
 
 function ToastProvider({ children }) {
   const [toasts, setToasts] = React.useState([]);
 
-  React.useEffect(() => {
-    const dismissAllToasts = (e) => {
-      if (e.code === 'Escape') {
-        setToasts([]);
-      }
-    };
-
-    window.addEventListener('keydown', dismissAllToasts);
-
-    return window.removeEventListener('keydown', dismissAllToasts);
+  const handleEscape = React.useCallback(() => {
+    setToasts([]);
   }, []);
+
+  useKey('Escape', handleEscape);
 
   const addNewToast = React.useCallback(
     (variant, text) => {
